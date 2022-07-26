@@ -1,0 +1,66 @@
+<div class="modal-header" style="margin-top: -24px;">
+    <b style="margin-left: -30px;">{{dialogTitle}}</b>
+
+    <button type="submit" class="btn btn-sm btn-icon btn-light-success" style="margin-right: -28px;" (click)="onOkClick()">
+        <mat-icon class="icon-chw-0">save</mat-icon>
+    </button>
+    <button type="reset" class="btn btn-sm btn-icon btn-light-danger" style="margin-right: -20px;" (click)="onCancelClick()">
+        <mat-icon class="icon-chw-0">close</mat-icon>
+    </button>
+</div>
+
+<form [formGroup]="form" style="overflow: hidden;">
+    
+    <div class="example-container" style="margin-right: 80px;">
+        <mat-form-field appearance="fill" style="margin-right: 80px; width: 258px;">
+          <mat-label>Enter product Name</mat-label>
+          <input matInput  [formControl]="product_name" formControlName="product_name" required minlength="4">
+          <div *ngIf="f.product_name.touched && f.product_name.invalid" class="text-danger">
+            <div *ngIf="f.product_name.errors.required">Name is required.</div>
+            <div *ngIf="f.product_name.errors?.['minlength']">Name must be 4 characters long</div>
+        </div>
+        </mat-form-field>
+
+        <!-- <mat-form-field>
+            <label for="product_name">Product Name</label>
+            <mat-select id="product_name" formControlName="item" required>
+                <mat-option *ngFor="let option of this.lists_autocomplete['items']" value="option">
+                    {{option.item_name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field> -->
+    </div>
+    <div class="example-container">
+        <mat-form-field appearance="fill" style="margin-right: 80px; width: 258px;">
+          <mat-label>Enter product Code</mat-label>
+          <input (keypress)="numberOnly($event)" matInput  [formControl]="product_code" formControlName="product_code" required minlength="4">
+          <div *ngIf="f.product_code.touched && f.product_code.invalid" class="text-danger">
+            <div *ngIf="f.product_code.errors.required">Code is required.</div>
+            <div *ngIf="f.product_code.errors?.['minlength']">code must be 4 characters long.</div>
+        </div>
+        </mat-form-field>
+    </div>
+    <div class="example-container">
+        <mat-form-field appearance="fill" style="margin-right: 80px; width: 258px;">
+          <mat-label>Category</mat-label>
+          <input matInput  [formControl]="category" formControlName="category" required>
+          <div *ngIf="f.category.touched && f.category.invalid" class="text-danger">
+              <div *ngIf="f.category.errors.required">Category is required.</div>
+          </div>
+        </mat-form-field>
+    </div> 
+    <div class="example-container">
+        <label for="file">File</label>
+        <input #imageInput type="file" id="file"  class="form-control"  accept="image/*" style="height: 44px; width: 239px;" (change)="onFileChange($event)" multiple>
+        <!-- <div *ngIf="imageSrc">
+            <img class="img-thumbnail" [src]="imageSrc || form.get('img').value" style="height: 60px; width:70px">
+        </div> -->
+        <!-- <img class="img-thumbnail" [src]="form.get('img').value" style="height: 60px; width:70px"> -->
+        <img class="img-thumbnail" [src]="imageSrc" style="height: 60px; width:70px">
+
+        <div class="text-danger" *ngIf="f.img.touched && f.img.invalid">
+            <div *ngIf="f.img.errors.required">Image is required</div>
+        </div>
+    </div>        
+    
+</form>

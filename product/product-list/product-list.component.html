@@ -1,0 +1,158 @@
+<div class="card">
+    <div class="card-header">
+        <b>PRODUCT</b>        
+        <button class="btn-outline-primary"
+        style="margin-left:708px;margin-top:-23px; padding: revert;" (click)="onEditClick('add', {id: 0});">ADD            
+        </button>
+        <button mat-flat-button class="btn btn-sm custom-btn-text-danger btn-hover-primary font-weight-bold mr-2"
+                (click)="doShowFilter()">
+                <mat-icon class="icon-chw-0">filter_alt</mat-icon>
+        </button>
+        <!-- <mat-slide-toggle (click)="doShowFilter()">Slide me!</mat-slide-toggle> -->
+
+        <!-- <div class="dropdown-menu-arrow dropdown-menu-right" style="margin-left: 1050px; margin-top: -36px;" >
+            <div class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+            </div>
+            <select><a [routerLink]="['/sales']" class="dropdown-menu-arrow dropdown-menu-right">                
+                <span>My Profile</span>
+            </a></select>
+            <a [routerLink]="['/sales']" class="dropdown-item">
+                
+                <span>My Profile</span>
+            </a>
+        </div> -->
+
+        <!-- <div class="dropdown-menu-arrow dropdown-menu-right" style="margin-left: 1050px; margin-top: -36px;" >
+            <div class=" dropdown-header noti-title">
+                <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+              <h6 class="text-overflow m-0">Welcome!</h6>
+            
+            <a routerLinkActive="active" [routerLink]="['/sales']" class="dropdown-item">
+              <i class="ni ni-single-02"></i>
+              <span>My profile</span>
+            </a>
+            <a routerLinkActive="active" [routerLink]="['/item']" class="dropdown-item">
+                <i class="ni ni-settings-gear-65"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+        </div> -->
+
+
+        <!-- <div class="dropdown-menu-arrow dropdown-menu-right" style="margin-left: 900px; margin-top: -36px;" ngbDropdown> 
+            <a class="nav-link pr-0" role="button" ngbDropdownToggle>
+                <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                <span class="d-none d-sm-inline mx-1">Tamil</span>
+            </a>
+            <div ngbDropdownMenu>
+              <button ngbDropdownItem>
+                <a routerLinkActive="active" [routerLink]="['/sales']" class="dropdown-item">                    
+                    <span>Settings</span>
+                  </a>
+              </button>
+              <button ngbDropdownItem>
+                <a routerLinkActive="active" [routerLink]="['/user']" class="dropdown-item">
+                    <span>Profile</span>
+                </a>
+              </button>
+              <button ngbDropdownItem>
+                <a routerLinkActive="active" [routerLink]="['/item']" class="dropdown-item">
+                    <span>Signout</span>
+                </a>
+              </button>
+            </div>
+        </div> -->
+    </div>
+
+    <div class="row">
+        <div [ngClass]="{'col-md-9': showSideBar, 'col-md-12': !showSideBar}" class="order-md-1 order-12" id="product">
+           <div class="card card-custom gutter-b">
+            <div class="card-body fp-card-body">
+                <div class="mat-table-wrapper">
+                    <table matTable class="table align-items-center table-flush" matSort>
+                        <thead class="thead-light" (click)="pagination()">
+                            <tr>
+                                <th scope="col" style="width: 10%;">ID</th>
+                                <th scope="col" style="width: 20%;">CATEGORY</th>
+                                <th scope="col" style="width: 20%;">PRODUCT NAME</th>
+                                <th scope="col" style="width: 20%;">PRODUCT CODE</th>
+                                <th scope="col" name="image">DESCRIPTION & IMAGE</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let record of dataSource" (dblclick)="onRowDblClick(record)">
+                                <td>{{record.id}}</td>
+                                <td>{{record.category}}</td>
+                                <td>{{record.product_name}}</td>
+                                <td>{{record.product_code}}</td>
+                                <td><img src="{{record.img}}" style="max-width: 17%; margin-left: 70px;"></td>
+                                <td class="text-right">                                                
+                                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                        <mat-icon>more_vert</mat-icon>
+                                      </button>
+
+                                      <mat-menu #menu="matMenu">
+                                        <button mat-menu-item (click)="onEditClick('edit',record)">
+                                          <mat-icon>edit</mat-icon>
+                                          <span>Edit</span>
+                                        </button>                                                   
+
+                                        <button mat-menu-item (click)="onEditClick('edit',record)">
+                                          <mat-icon>copyright</mat-icon>
+                                          <span>Copy</span>
+                                        </button>
+                                        
+                                        <button mat-menu-item (click)="onDeleteClick(record)">
+                                            <mat-icon>delete</mat-icon>
+                                            <span>Delete</span>
+                                        </button>
+                                      </mat-menu>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="mat-table-message" *ngIf="!dataSource || dataSource.length == 0">
+                        <div class="p-8 text-center">No Record's Found</div>
+                    </div>
+                </div>
+                <div class="mat-table-bottom">
+                    <mat-paginator [pageSize]="8" [pageSizeOptions]="[2,4,6,8]" [length]="totalRecords" [showFirstLastButtons]="true" aria-label="Select page"></mat-paginator>
+                </div>
+            </div>
+           </div>
+        </div>    
+        <div class="col-md-3 order-md-12 order-1" *ngIf="showSideBar">
+            <div class="card card-custom gutter-b">
+                <div class="card-header border-0">
+                    <div class="card-title">
+                        <h3 class="card-label">Parameters</h3>                        
+                    </div>
+                    <div class="card-toolbar" style="margin-top: -44px">
+                        <div class="justify-content-center">
+                            <button mat-icon-button matTooltip="close" (click)="showSideBar = false;" style="margin-left: 212px;">
+                                <mat-icon >close</mat-icon>
+                            </button>                     
+                        </div>
+                    </div>
+                </div>
+                <form [formGroup]="filterParameters">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <mat-label>Name</mat-label>
+                        <input type="text" class="form-control" formControlName="product_name">
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <mat-label>Code</mat-label>
+                        <input type="text" class="form-control" formControlName="product_code">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" style="size: 5px; padding: revert;" class="btn btn-primary" (click)="onSearchClick()">Search</button>
+                        <button type="reset" style="size: 5px; padding: revert;" class="btn btn-secondary" >Clear</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>    
+</div>
